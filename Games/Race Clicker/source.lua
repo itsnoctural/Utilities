@@ -5,7 +5,6 @@ local LocalPlayer = Players.LocalPlayer
 
 getgenv().Settings = {
     Win = false,
-    Delay = 0.1,
     Rebirth = false,
 }
 
@@ -13,12 +12,6 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/blood
 local Window = Library:CreateWindow("RC | EsohaSL")
 
 Window:Section("esohasl.com")
-
-Window:Slider("Win Delay", { min = 0.1, max = 0.5 }, function(value)
-    task.spawn(function()
-        Settings.Delay = value;
-    end)
-end)
 
 Window:Toggle("Auto Win", {}, function(state)
     task.spawn(function()
@@ -28,7 +21,6 @@ Window:Toggle("Auto Win", {}, function(state)
 
             if LocalPlayer.PlayerGui.TimerUI.RaceTimer.Visible then                    
                 LocalPlayer.Character:PivotTo(LocalPlayer.Character:GetPivot() +  Vector3.new(50000, 0, 0))
-                task.wait(Settings.Delay)
             end
 
             task.wait()
@@ -43,7 +35,7 @@ Window:Toggle("Auto Rebirth", {}, function(state)
             if not Settings.Rebirth then return end
 
             ReplicatedStorage.Packages.Knit.Services.RebirthService.RF.Rebirth:InvokeServer()
-            task.wait(2.5)
+            task.wait(5)
         end
     end)
 end)
